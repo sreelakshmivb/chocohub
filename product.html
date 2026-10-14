@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChocoHub - Artisanal Dark Truffle Collection</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-chocolate: #2b1810;
+            --secondary-chocolate: #4a281e;
+            --caramel-gold: #d4af37;
+            --gold-hover: #b59226;
+            --cream-bg: #faf6f0;
+            --card-bg: #ffffff;
+            --text-dark: #1f1f1f;
+            --text-muted: #666666;
+            --border-color: #e5d9cc;
+            --shadow: 0 10px 30px rgba(43, 24, 16, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            background-color: var(--primary-chocolate);
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--caramel-gold);
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--caramel-gold);
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-icons a {
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-icons a:hover {
+            color: var(--caramel-gold);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--caramel-gold);
+            color: var(--primary-chocolate);
+            font-size: 0.75rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- BREADCRUMB --- */
+        .breadcrumb-wrapper {
+            max-width: 1200px;
+            margin: 1.5rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb li+li:before {
+            content: "/\00a0";
+            padding: 0 8px;
+            color: var(--border-color);
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-chocolate);
+        }
+
+        .breadcrumb li.active {
+            color: var(--primary-chocolate);
+            font-weight: 600;
+        }
+
+        /* --- PRODUCT MAIN CONTAINER --- */
+        .product-container {
+            max-width: 1200px;
+            margin: 1.5rem auto 4rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+        }
+
+        /* --- PRODUCT GALLERY --- */
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image-container {
+            width: 100%;
+            height: 480px;
+            background-color: #3b2219;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--caramel-gold);
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .main-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease;
+        }
+
+        .main-image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .badge-organic {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--primary-chocolate);
+            color: var(--caramel-gold);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .thumbnail-list {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .thumbnail {
+            width: 85px;
+            height: 85px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            background-color: #3b2219;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--caramel-gold);
+            font-size: 0.7rem;
+            position: relative;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .thumbnail.active, .thumbnail:hover {
+            border-color: var(--caramel-gold);
+        }
+
+        /* --- PRODUCT DETAILS --- */
+        .product-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--caramel-gold);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--primary-chocolate);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.2rem;
+        }
+
+        .stars {
+            color: var(--caramel-gold);
+            font-size: 0.9rem;
+        }
+
+        .rating-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .price-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-chocolate);
+        }
+
+        .original-price {
+            font-size: 1.2rem;
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .product-description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        /* --- SELECTION CONTROLS --- */
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .option-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .box-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .box-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .box-btn.active, .box-btn:hover {
+            border-color: var(--primary-chocolate);
+            background-color: var(--primary-chocolate);
+            color: #fff;
+        }
+
+        .purchase-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 48px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--primary-chocolate);
+        }
+
+        .qty-btn:hover {
+            background-color: var(--cream-bg);
+        }
+
+        .qty-input {
+            width: 45px;
+            height: 48px;
+            border: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .btn-add-cart {
+            flex: 2;
+            background-color: var(--primary-chocolate);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(43, 24, 16, 0.15);
+        }
+
+        .btn-add-cart:hover {
+            background-color: var(--secondary-chocolate);
+            transform: translateY(-2px);
+        }
+
+        .btn-buy-now {
+            flex: 1.5;
+            background-color: var(--caramel-gold);
+            color: var(--primary-chocolate);
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-buy-now:hover {
+            background-color: var(--gold-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- PRODUCT PERKS --- */
+        .product-perks {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .perk-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 6px;
+        }
+
+        .perk-item i {
+            color: var(--caramel-gold);
+            font-size: 1.2rem;
+        }
+
+        .perk-item span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        /* --- TABS SECTION --- */
+        .tabs-section {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-chocolate);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--caramel-gold);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-chocolate);
+            margin-bottom: 1rem;
+        }
+
+        .tab-content ul {
+            padding-left: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tab-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- RELATED PRODUCTS --- */
+        .related-section {
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--primary-chocolate);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--caramel-gold);
+            margin: 8px auto 0;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card-img-container {
+            height: 200px;
+            background-color: #3b2219;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--caramel-gold);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .card-img-container img {
+            transform: scale(1.08);
+        }
+
+        .card-info {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--primary-chocolate);
+            margin-bottom: 0.4rem;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .card-price {
+            font-weight: 700;
+            color: var(--secondary-chocolate);
+            margin-bottom: 1rem;
+        }
+
+        .card-btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid var(--primary-chocolate);
+            color: var(--primary-chocolate);
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .card-btn:hover {
+            background: var(--primary-chocolate);
+            color: #fff;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary-chocolate);
+            color: #d5c3b8;
+            padding: 4rem 2rem 2rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--caramel-gold);
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col a {
+            color: #d5c3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col a:hover {
+            color: var(--caramel-gold);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .main-image-container {
+                height: 380px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-cookie-bite"></i> ChocoHub
+            </a>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Collections</a></li>
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a href="#"><i class="fa-regular fa-heart"></i></a>
+                <a href="#">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-count">2</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb-wrapper">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Gourmet Truffles</a></li>
+            <li class="active">70% Ecuadorian Dark Truffle Box</li>
+        </ul>
+    </div>
+
+    <!-- MAIN PRODUCT SECTION -->
+    <main class="product-container">
+        
+        <!-- PRODUCT GALLERY -->
+        <div class="product-gallery">
+            <div class="main-image-container">
+                <span>Ecuadorian Dark Reserve</span>
+                <span class="badge-organic">100% Organic</span>
+                <img id="main-product-img" src="https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=800&q=80" alt="Ecuadorian Dark Truffle Box" onerror="this.style.display='none'">
+            </div>
+            <div class="thumbnail-list">
+                <div class="thumbnail active" onclick="changeImage(this, 'https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=800&q=80')">
+                    <span>View 1</span>
+                    <img src="https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 1" onerror="this.style.display='none'">
+                </div>
+                <div class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=800&q=80')">
+                    <span>View 2</span>
+                    <img src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 2" onerror="this.style.display='none'">
+                </div>
+                <div class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=800&q=80')">
+                    <span>View 3</span>
+                    <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=200&q=80" alt="Thumbnail 3" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT DETAILS -->
+        <div class="product-details">
+            <span class="product-category">Artisanal Truffles</span>
+            <h1 class="product-title">70% Ecuadorian Dark Truffle Reserve</h1>
+            
+            <div class="product-rating">
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <span class="rating-text">4.8 (124 Customer Reviews)</span>
+            </div>
+
+            <div class="price-wrapper">
+                <span class="current-price" id="product-price">$28.00</span>
+                <span class="original-price">$34.00</span>
+            </div>
+
+            <p class="product-description">
+                Handcrafted using single-origin Ecuadorian cocoa beans, dusted with raw cocoa powder, and filled with a silky smooth, slow-churned dark chocolate ganache. A luxurious treat for the true chocolate connoisseur.
+            </p>
+
+            <!-- BOX SIZE OPTIONS -->
+            <div class="option-group">
+                <label class="option-label">Select Box Size</label>
+                <div class="box-options">
+                    <button class="box-btn active" onclick="selectSize(this, '$28.00')">12 Pieces</button>
+                    <button class="box-btn" onclick="selectSize(this, '$48.00')">24 Pieces</button>
+                    <button class="box-btn" onclick="selectSize(this, '$68.00')">36 Pieces</button>
+                </div>
+            </div>
+
+            <!-- QUANTITY AND ADD TO CART -->
+            <div class="purchase-actions">
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="updateQuantity(-1)">-</button>
+                    <input type="number" id="quantity" class="qty-input" value="1" min="1" readonly>
+                    <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+                </div>
+                <button class="btn-add-cart">
+                    <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+                </button>
+                <button class="btn-buy-now">Buy Now</button>
+            </div>
+
+            <!-- PERKS -->
+            <div class="product-perks">
+                <div class="perk-item">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <span>Cold-Pack Shipping</span>
+                </div>
+                <div class="perk-item">
+                    <i class="fa-solid fa-leaf"></i>
+                    <span>100% Fair Trade</span>
+                </div>
+                <div class="perk-item">
+                    <i class="fa-solid fa-ribbon"></i>
+                    <span>Gift Packaging</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- INFORMATION TABS -->
+    <section class="tabs-section">
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="switchTab('description', this)">Description</button>
+            <button class="tab-btn" onclick="switchTab('ingredients', this)">Ingredients & Nutrition</button>
+            <button class="tab-btn" onclick="switchTab('shipping', this)">Shipping & Storage</button>
+        </div>
+
+        <div id="description" class="tab-content active">
+            <h3>Pure Craftsmanship</h3>
+            <p>Every single truffle in our Ecuadorian Dark Reserve box is delicately rolled by hand in our master atelier. We source our cacao directly from sustainable, family-owned farms in the Arriba region of Ecuador, known worldwide for its distinct floral aroma and deep fruit notes.</p>
+        </div>
+
+        <div id="ingredients" class="tab-content">
+            <h3>Ingredients</h3>
+            <p>Dark Chocolate (Ecuadorian Cacao Mass, Organic Cane Sugar, Cocoa Butter, Natural Vanilla Pods), Heavy Cream, Organic Butter, Cocoa Powder.</p>
+            <br>
+            <h3>Allergen Info</h3>
+            <ul>
+                <li>Contains Dairy.</li>
+                <li>Produced in a facility that handles tree nuts, peanuts, and gluten.</li>
+                <li>Soy-Free & Non-GMO.</li>
+            </ul>
+        </div>
+
+        <div id="shipping" class="tab-content">
+            <h3>Shipping Details</h3>
+            <p>To ensure your chocolates arrive in pristine condition, all orders are shipped in temperature-controlled, insulated packaging with eco-friendly ice packs.</p>
+            <br>
+            <h3>Storage Instructions</h3>
+            <p>Store in a cool, dry place between 15°C - 18°C (59°F - 64°F). For optimal flavor, enjoy within 3 weeks of delivery.</p>
+        </div>
+    </section>
+
+    <!-- RELATED PRODUCTS -->
+    <section class="related-section">
+        <h2 class="section-title">You Might Also Devour</h2>
+        <div class="related-grid">
+            
+            <div class="product-card">
+                <div class="card-img-container">
+                    <span>Salted Pralines</span>
+                    <img src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=500&q=80" alt="Salted Caramel Bites" onerror="this.style.display='none'">
+                </div>
+                <div class="card-info">
+                    <a href="#" class="card-title">Salted Caramel Pralines</a>
+                    <div class="card-price">$24.00</div>
+                    <button class="card-btn">View Product</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-img-container">
+                    <span>Velvet Crunch</span>
+                    <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=500&q=80" alt="Hazelnut Crunch Bar" onerror="this.style.display='none'">
+                </div>
+                <div class="card-info">
+                    <a href="#" class="card-title">Hazelnut Velvet Crunch</a>
+                    <div class="card-price">$18.00</div>
+                    <button class="card-btn">View Product</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-img-container">
+                    <span>Raspberry Infusion</span>
+                    <img src="https://images.unsplash.com/photo-1526081347589-7fa3cb41b4b2?auto=format&fit=crop&w=500&q=80" alt="Raspberry Truffles" onerror="this.style.display='none'">
+                </div>
+                <div class="card-info">
+                    <a href="#" class="card-title">Raspberry Dark Infusion</a>
+                    <div class="card-price">$26.00</div>
+                    <button class="card-btn">View Product</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>ChocoHub</h4>
+                <p>Crafting unforgettable moments through the art of luxury, sustainable chocolate-making.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Shop All</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">Gift Boxes</a></li>
+                    <li><a href="#">Corporate Gifts</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Care</h4>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Subscribe to receive special offers and sweet updates.</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 ChocoHub. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        function changeImage(element, newSrc) {
+            document.getElementById('main-product-img').src = newSrc;
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function updateQuantity(change) {
+            const qtyInput = document.getElementById('quantity');
+            let currentQty = parseInt(qtyInput.value);
+            currentQty += change;
+            if (currentQty < 1) currentQty = 1;
+            qtyInput.value = currentQty;
+        }
+
+        function selectSize(element, price) {
+            const buttons = document.querySelectorAll('.box-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('product-price').innerText = price;
+        }
+
+        function switchTab(tabId, element) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+
+            contents.forEach(content => content.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChocoHub | Discover the World's Finest Artisanal Chocolates</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cocoa: {
+                            900: '#1A0C0A',
+                            800: '#2B1713',
+                            700: '#3D231D',
+                            600: '#5C3830',
+                            100: '#F5EBE6',
+                            50: '#FAF5F2',
+                        },
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#F3E5AB',
+                            dark: '#AA820A'
+                        },
+                        berry: '#E63946',
+                        pistachio: '#2A9D8F',
+                        caramel: '#E9C46A',
+                        matcha: '#8AB17D',
+                        ruby: '#D64550'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Fredoka"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Keyframe Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3)); }
+            50% { filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.7)); }
+        }
+        @keyframes drip {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
+        }
+
+        .animate-float { animation: float 5s ease-in-out infinite; }
+        .animate-float-delayed { animation: float 6s ease-in-out 2s infinite; }
+        .glow-gold { animation: pulseGlow 3s infinite; }
+        
+        /* Custom Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glass-dark {
+            background: rgba(43, 23, 19, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Perspective Flip Cards */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+
+        .card-inner {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .flip-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2B1713;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E9C46A;
+        }
+    </style>
+</head>
+<body class="bg-cocoa-50 text-cocoa-800 font-sans antialiased overflow-x-hidden selection:bg-gold selection:text-cocoa-900">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-dark border-b border-gold/20" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-gold to-caramel flex items-center justify-center text-cocoa-900 font-display font-bold text-2xl shadow-lg transform group-hover:rotate-12 transition-transform">
+                        <i class="fa-solid font-black fa-cube text-cocoa-900"></i>
+                    </div>
+                    <span class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-white">Choco<span class="text-gold">Hub</span></span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold tracking-wide text-cocoa-100">
+                    <a href="#passport" class="hover:text-gold transition-colors flex items-center gap-2"><i class="fa-solid fa-passport text-gold"></i> Global Passport</a>
+                    <a href="#builder" class="hover:text-gold transition-colors flex items-center gap-2"><i class="fa-solid fa-box-open text-caramel"></i> Custom Box</a>
+                    <a href="#bestsellers" class="hover:text-gold transition-colors">Bestsellers</a>
+                    <a href="#why-us" class="hover:text-gold transition-colors">Why ChocoHub</a>
+                    <a href="#club" class="hover:text-gold transition-colors">ChocoClub</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-4">
+                    <button onclick="openQuizModal()" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-berry/20 to-ruby/20 border border-ruby/40 text-rose-200 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-ruby hover:text-white transition-all shadow-md">
+                        <i class="fa-solid fa-wand-magic-sparkles text-gold"></i> Cocoa Quiz
+                    </button>
+                    
+                    <!-- Cart Button -->
+                    <button onclick="toggleCartDrawer()" class="relative bg-cocoa-700/80 hover:bg-cocoa-600 text-gold p-3 rounded-xl border border-gold/30 transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-basket-shopping text-lg"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-berry text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md animate-bounce">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden text-cocoa-100 hover:text-gold text-2xl p-2 focus:outline-none">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-cocoa-800 border-b border-gold/20 px-4 pt-2 pb-6 space-y-3 text-cocoa-100 text-center font-medium">
+            <a href="#passport" class="block py-2 hover:text-gold border-b border-cocoa-700">Global Passport</a>
+            <a href="#builder" class="block py-2 hover:text-gold border-b border-cocoa-700">Custom Box Builder</a>
+            <a href="#bestsellers" class="block py-2 hover:text-gold border-b border-cocoa-700">Bestsellers</a>
+            <a href="#why-us" class="block py-2 hover:text-gold border-b border-cocoa-700">Why ChocoHub</a>
+            <button onclick="openQuizModal()" class="w-full mt-2 bg-ruby text-white py-2 rounded-full font-bold">Take Flavor Quiz</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen bg-cocoa-900 text-white pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden flex items-center">
+        <!-- Background SVG Decorative Bubbles & Drizzle -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <div class="absolute top-10 left-10 w-96 h-96 bg-berry rounded-full filter blur-[120px]"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-gold rounded-full filter blur-[120px]"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pistachio rounded-full filter blur-[160px]"></div>
+        </div>
+
+        <!-- Chocolate Drizzle Top SVG Border -->
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-10 opacity-30 pointer-events-none">
+            <svg class="relative block w-full h-12 text-cocoa-700" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C150,90 350,-40 500,60 C650,160 900,10 1200,40 L1200,0 L0,0 Z" fill="currentColor"></path>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column Text & CTAs -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-cocoa-800/80 border border-gold/40 px-4 py-2 rounded-full text-gold text-xs sm:text-sm font-semibold tracking-wide uppercase shadow-lg">
+                        <span class="w-2 h-2 rounded-full bg-pistachio animate-ping"></span>
+                        <i class="fa-solid fa-earth-americas"></i> Direct From 50+ Global Artisans
+                    </div>
+                    
+                    <h1 class="font-serif text-4xl sm:text-6xl xl:text-7xl font-bold leading-tight tracking-tight">
+                        Discover the World’s <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold via-caramel to-gold">Finest Artisanal</span> Chocolates
+                    </h1>
+
+                    <p class="text-choco-100/90 text-lg sm:text-xl max-w-2xl font-light leading-relaxed mx-auto lg:mx-0">
+                        Embark on a luxury tasting tour. From velvety <strong class="text-gold font-semibold">Belgian Pralines</strong> to vibrant <strong class="text-matcha font-semibold">Japanese Matcha Truffles</strong> and rare <strong class="text-ruby font-semibold">Ecuadorian Ruby Cocoa</strong>.
+                    </p>
+
+                    <!-- Interactive Quick Highlights pills -->
+                    <div class="flex flex-wrap gap-3 justify-center lg:justify-start pt-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-cocoa-800/60 border border-cocoa-600 text-xs text-cocoa-100 flex items-center gap-1.5"><i class="fa-solid fa-gem text-gold"></i> 100% Single Origin</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-cocoa-800/60 border border-cocoa-600 text-xs text-cocoa-100 flex items-center gap-1.5"><i class="fa-solid fa-leaf text-pistachio"></i> Fairtrade Certified</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-cocoa-800/60 border border-cocoa-600 text-xs text-cocoa-100 flex items-center gap-1.5"><i class="fa-solid fa-snowflake text-sky-400"></i> Cold-Chilled Express Shipping</span>
+                    </div>
+
+                    <!-- Call To Actions -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#passport" class="bg-gradient-to-r from-gold via-caramel to-gold hover:opacity-95 text-cocoa-900 font-bold px-8 py-4 rounded-2xl shadow-xl shadow-gold/20 hover:shadow-gold/40 transform hover:-translate-y-1 transition-all text-center flex items-center justify-center gap-3">
+                            <span>Explore Global Collection</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#builder" class="bg-cocoa-800/90 hover:bg-cocoa-700 border-2 border-gold/50 text-gold font-bold px-8 py-4 rounded-2xl shadow-lg transform hover:-translate-y-1 transition-all text-center flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-box-open text-caramel"></i>
+                            <span>Build Your ChocoBox</span>
+                        </a>
+                    </div>
+
+                    <!-- Social Proof Mini Stats -->
+                    <div class="pt-6 border-t border-cocoa-700/60 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-display font-bold text-gold">120+</div>
+                            <div class="text-xs text-cocoa-100/70">Exotic Flavors</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-display font-bold text-berry">42</div>
+                            <div class="text-xs text-cocoa-100/70">Countries Sourced</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-display font-bold text-pistachio">4.9★</div>
+                            <div class="text-xs text-cocoa-100/70">15k+ Happy Foodies</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column Showcase Showcase Interactive Display -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <!-- Glow effect -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-gold/30 to-berry/30 rounded-full filter blur-3xl opacity-50 glow-gold"></div>
+
+                    <!-- Interactive Floating Card Stack -->
+                    <div class="relative w-full max-w-md">
+                        <!-- Card 1: Main Product Graphic -->
+                        <div class="bg-gradient-to-b from-cocoa-700 to-cocoa-800 border-2 border-gold/40 rounded-3xl p-6 shadow-2xl relative overflow-hidden animate-float">
+                            <div class="absolute top-0 right-0 bg-gold text-cocoa-900 font-bold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider shadow">
+                                Featured Origin
+                            </div>
+                            
+                            <div class="text-center py-6">
+                                <div class="w-32 h-32 mx-auto mb-4 bg-cocoa-900/60 rounded-full p-4 flex items-center justify-center shadow-inner border border-gold/20 relative">
+                                    <!-- Dynamic SVG Chocolate Truffle Illustration -->
+                                    <svg viewBox="0 0 100 100" class="w-24 h-24 drop-shadow-xl">
+                                        <path d="M50 15 C35 15, 20 28, 20 48 C20 68, 32 85, 50 85 C68 85, 80 68, 80 48 C80 28, 65 15, 50 15 Z" fill="#3D231D"/>
+                                        <path d="M50 20 C60 20, 72 30, 72 45 C72 55, 68 62, 60 62 C55 62, 52 58, 48 58 C42 58, 40 65, 30 65 C22 65, 22 50, 28 35 Z" fill="#5C3830"/>
+                                        <path d="M40 25 Q 55 10, 65 30 T 45 40" fill="none" stroke="#D4AF37" stroke-width="4" stroke-linecap="round"/>
+                                        <circle cx="58" cy="32" r="3" fill="#E63946"/>
+                                        <circle cx="42" cy="42" r="2.5" fill="#2A9D8F"/>
+                                        <circle cx="52" cy="50" r="2" fill="#E9C46A"/>
+                                    </svg>
+                                </div>
+
+                                <h3 class="font-serif text-2xl font-bold text-white">Kyoto Matcha Gold Truffle</h3>
+                                <p class="text-xs text-matcha font-medium mt-1"><i class="fa-solid fa-location-dot"></i> Uji, Japan • 68% Dark Cocoa</p>
+                                
+                                <div class="mt-4 inline-flex items-center gap-1 text-gold text-sm">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-white text-xs ml-1">(4.9/5)</span>
+                                </div>
+
+                                <div class="mt-5 flex items-center justify-between bg-cocoa-900/80 px-4 py-3 rounded-xl border border-cocoa-600">
+                                    <div class="text-left">
+                                        <span class="text-xs text-cocoa-100/60 block">Taste Profile</span>
+                                        <span class="text-xs font-semibold text-gold">Earthy Matcha & Honey</span>
+                                    </div>
+                                    <span class="text-xl font-bold text-white">$24.<span class="text-xs">90</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 1 -->
+                        <div class="absolute -top-6 -left-6 bg-glass-card bg-white/90 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-gold/30 flex items-center gap-3 animate-float-delayed">
+                            <div class="w-10 h-10 rounded-xl bg-ruby/10 text-ruby flex items-center justify-center font-bold text-xl">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-cocoa-900">Rare Ruby Cocoa</div>
+                                <div class="text-[10px] text-cocoa-600">Naturally Pink & Fruity</div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 2 -->
+                        <div class="absolute -bottom-6 -right-6 bg-glass-card bg-cocoa-800/90 text-white p-3.5 rounded-2xl shadow-xl border border-gold/40 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-gold/20 text-gold flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-gold">Cold-Pack Shipping</div>
+                                <div class="text-[10px] text-cocoa-100/80">Guaranteed No Melting</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Chocolate Passport Section -->
+    <section id="passport" class="py-20 bg-cocoa-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-berry font-bold uppercase tracking-wider text-xs bg-berry/10 px-3 py-1.5 rounded-full border border-berry/20">
+                    <i class="fa-solid fa-earth-americas"></i> Flavor Destination
+                </span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cocoa-900 mt-3">Global Chocolate Passport</h2>
+                <p class="text-cocoa-600 mt-3 text-base sm:text-lg">Filter through world-famous cocoa origins and curated artisanal chocolate categories.</p>
+            </div>
+
+            <!-- Region & Category Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12" id="passport-filters">
+                <button onclick="filterPassport('all')" class="filter-btn active-filter bg-cocoa-800 text-gold px-5 py-2.5 rounded-full font-semibold text-sm transition-all shadow-md">
+                    🌍 All Origins
+                </button>
+                <button onclick="filterPassport('dark')" class="filter-btn bg-white hover:bg-cocoa-100 text-cocoa-800 px-5 py-2.5 rounded-full font-semibold text-sm transition-all border border-cocoa-200">
+                    🍫 Dark Single-Origin
+                </button>
+                <button onclick="filterPassport('belgian')" class="filter-btn bg-white hover:bg-cocoa-100 text-cocoa-800 px-5 py-2.5 rounded-full font-semibold text-sm transition-all border border-cocoa-200">
+                    🇧🇪 Belgian Pralines
+                </button>
+                <button onclick="filterPassport('swiss')" class="filter-btn bg-white hover:bg-cocoa-100 text-cocoa-800 px-5 py-2.5 rounded-full font-semibold text-sm transition-all border border-cocoa-200">
+                    🇨🇭 Swiss Truffles
+                </button>
+                <button onclick="filterPassport('matcha')" class="filter-btn bg-white hover:bg-cocoa-100 text-cocoa-800 px-5 py-2.5 rounded-full font-semibold text-sm transition-all border border-cocoa-200">
+                    🇯🇵 Japanese Matcha
+                </button>
+                <button onclick="filterPassport('ruby')" class="filter-btn bg-white hover:bg-cocoa-100 text-cocoa-800 px-5 py-2.5 rounded-full font-semibold text-sm transition-all border border-cocoa-200">
+                    🌸 Ecuadorian Ruby
+                </button>
+                <button onclick="filterPassport('vegan')" class="filter-btn bg-white hover:bg-cocoa-100 text-cocoa-800 px-5 py-2.5 rounded-full font-semibold text-sm transition-all border border-cocoa-200">
+                    🌱 Vegan & Sugar-Free
+                </button>
+            </div>
+
+            <!-- Interactive Grid of Chocolates with Flip Card Effects -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="passport-grid">
+                
+                <!-- Product Card 1 -->
+                <div class="passport-item dark swiss flip-card perspective-1000 h-[380px] group cursor-pointer">
+                    <div class="card-inner relative w-full h-full transform-style-3d shadow-xl rounded-3xl">
+                        <!-- Front Face -->
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border border-cocoa-100 flex flex-col justify-between backface-hidden">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="bg-cocoa-800 text-gold text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-flag"></i> Switzerland</span>
+                                    <span class="text-xs font-bold text-berry bg-berry/10 px-2.5 py-1 rounded-full">72% Dark</span>
+                                </div>
+                                <div class="w-32 h-32 mx-auto my-2 flex items-center justify-center bg-cocoa-50 rounded-2xl p-2 group-hover:scale-105 transition-transform">
+                                    <svg viewBox="0 0 100 100" class="w-24 h-24">
+                                        <rect x="20" y="20" width="60" height="60" rx="10" fill="#2B1713"/>
+                                        <path d="M20 50 Q 50 30, 80 50 Q 50 70, 20 50 Z" fill="#D4AF37" opacity="0.8"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-cocoa-900 text-center">Zurich Alpine Mountain Peak</h3>
+                                <p class="text-xs text-cocoa-500 text-center mt-1">Infused with wild alpine honey and roasted hazelnut crunch.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-cocoa-100 pt-4">
+                                <div>
+                                    <span class="text-xs text-cocoa-400 block">Hover to View Notes</span>
+                                    <span class="text-lg font-bold text-cocoa-900">$18.50</span>
+                                </div>
+                                <button onclick="addToCart('Zurich Alpine Mountain Peak', 18.50, 'Switzerland')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white p-3 rounded-xl transition-all">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Back Face -->
+                        <div class="absolute inset-0 bg-cocoa-800 text-white rounded-3xl p-6 flex flex-col justify-between rotate-y-180 backface-hidden border-2 border-gold/50">
+                            <div>
+                                <div class="text-gold font-bold text-xs uppercase tracking-widest mb-2">Tasting Profile</div>
+                                <h4 class="font-serif text-xl font-bold text-white mb-3">Flavor Notes</h4>
+                                <ul class="space-y-2 text-xs text-cocoa-100">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Roasted Espresso & Alpine Honey</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Organic Swiss Mountain Milk</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Texture: Velvety smooth melt</li>
+                                </ul>
+                                <div class="mt-4 p-3 bg-cocoa-700/80 rounded-xl text-xs text-cocoa-100/90">
+                                    <strong class="text-gold">Artisan Note:</strong> Handcrafted in Zurich by 3rd generation master chocolatiers.
+                                </div>
+                            </div>
+                            <button onclick="addToCart('Zurich Alpine Mountain Peak', 18.50, 'Switzerland')" class="w-full bg-gold hover:bg-caramel text-cocoa-900 font-bold py-3 rounded-xl transition-all text-center">
+                                Add To Box - $18.50
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="passport-item belgian flip-card perspective-1000 h-[380px] group cursor-pointer">
+                    <div class="card-inner relative w-full h-full transform-style-3d shadow-xl rounded-3xl">
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border border-cocoa-100 flex flex-col justify-between backface-hidden">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="bg-cocoa-800 text-gold text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-flag"></i> Belgium</span>
+                                    <span class="text-xs font-bold text-caramel bg-caramel/20 px-2.5 py-1 rounded-full text-cocoa-900">Milk Velvet</span>
+                                </div>
+                                <div class="w-32 h-32 mx-auto my-2 flex items-center justify-center bg-cocoa-50 rounded-2xl p-2 group-hover:scale-105 transition-transform">
+                                    <svg viewBox="0 0 100 100" class="w-24 h-24">
+                                        <circle cx="50" cy="50" r="35" fill="#5C3830"/>
+                                        <circle cx="50" cy="50" r="22" fill="#E9C46A" opacity="0.9"/>
+                                        <circle cx="50" cy="50" r="10" fill="#2B1713"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-cocoa-900 text-center">Brussels Salted Caramel Praline</h3>
+                                <p class="text-xs text-cocoa-500 text-center mt-1">Slow-cooked fleur de sel caramel in a crisp chocolate shell.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-cocoa-100 pt-4">
+                                <div>
+                                    <span class="text-xs text-cocoa-400 block">Hover to View Notes</span>
+                                    <span class="text-lg font-bold text-cocoa-900">$21.00</span>
+                                </div>
+                                <button onclick="addToCart('Brussels Salted Caramel Praline', 21.00, 'Belgium')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white p-3 rounded-xl transition-all">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-cocoa-800 text-white rounded-3xl p-6 flex flex-col justify-between rotate-y-180 backface-hidden border-2 border-gold/50">
+                            <div>
+                                <div class="text-gold font-bold text-xs uppercase tracking-widest mb-2">Tasting Profile</div>
+                                <h4 class="font-serif text-xl font-bold text-white mb-3">Flavor Notes</h4>
+                                <ul class="space-y-2 text-xs text-cocoa-100">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> French Fleur de Sel Butter Caramel</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Creamy Belgian Milk Chocolate Shell</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Sweet & Salted balance</li>
+                                </ul>
+                                <div class="mt-4 p-3 bg-cocoa-700/80 rounded-xl text-xs text-cocoa-100/90">
+                                    <strong class="text-gold">Award Winner:</strong> Voted Best European Praline 2025.
+                                </div>
+                            </div>
+                            <button onclick="addToCart('Brussels Salted Caramel Praline', 21.00, 'Belgium')" class="w-full bg-gold hover:bg-caramel text-cocoa-900 font-bold py-3 rounded-xl transition-all text-center">
+                                Add To Box - $21.00
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="passport-item matcha flip-card perspective-1000 h-[380px] group cursor-pointer">
+                    <div class="card-inner relative w-full h-full transform-style-3d shadow-xl rounded-3xl">
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border border-cocoa-100 flex flex-col justify-between backface-hidden">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="bg-cocoa-800 text-gold text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-flag"></i> Japan</span>
+                                    <span class="text-xs font-bold text-matcha bg-matcha/20 px-2.5 py-1 rounded-full">Ceremonial Matcha</span>
+                                </div>
+                                <div class="w-32 h-32 mx-auto my-2 flex items-center justify-center bg-cocoa-50 rounded-2xl p-2 group-hover:scale-105 transition-transform">
+                                    <svg viewBox="0 0 100 100" class="w-24 h-24">
+                                        <polygon points="50,15 85,80 15,80" fill="#8AB17D"/>
+                                        <circle cx="50" cy="55" r="12" fill="#D4AF37"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-cocoa-900 text-center">Kyoto Ceremonial Green Tea Truffle</h3>
+                                <p class="text-xs text-cocoa-500 text-center mt-1">First-harvest Uji matcha blended with white cocoa butter.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-cocoa-100 pt-4">
+                                <div>
+                                    <span class="text-xs text-cocoa-400 block">Hover to View Notes</span>
+                                    <span class="text-lg font-bold text-cocoa-900">$24.00</span>
+                                </div>
+                                <button onclick="addToCart('Kyoto Ceremonial Green Tea Truffle', 24.00, 'Japan')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white p-3 rounded-xl transition-all">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-cocoa-800 text-white rounded-3xl p-6 flex flex-col justify-between rotate-y-180 backface-hidden border-2 border-gold/50">
+                            <div>
+                                <div class="text-gold font-bold text-xs uppercase tracking-widest mb-2">Tasting Profile</div>
+                                <h4 class="font-serif text-xl font-bold text-white mb-3">Flavor Notes</h4>
+                                <ul class="space-y-2 text-xs text-cocoa-100">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Grassy Umami & Sweet White Cocoa</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Real Gold Dust Topping</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Subtle Yuzu Citrus undertone</li>
+                                </ul>
+                                <div class="mt-4 p-3 bg-cocoa-700/80 rounded-xl text-xs text-cocoa-100/90">
+                                    <strong class="text-gold">Sourcing:</strong> Directly imported from tea estates in Kyoto.
+                                </div>
+                            </div>
+                            <button onclick="addToCart('Kyoto Ceremonial Green Tea Truffle', 24.00, 'Japan')" class="w-full bg-gold hover:bg-caramel text-cocoa-900 font-bold py-3 rounded-xl transition-all text-center">
+                                Add To Box - $24.00
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="passport-item ruby dark flip-card perspective-1000 h-[380px] group cursor-pointer">
+                    <div class="card-inner relative w-full h-full transform-style-3d shadow-xl rounded-3xl">
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border border-cocoa-100 flex flex-col justify-between backface-hidden">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="bg-cocoa-800 text-gold text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-flag"></i> Ecuador</span>
+                                    <span class="text-xs font-bold text-ruby bg-ruby/10 px-2.5 py-1 rounded-full">Ruby Pink</span>
+                                </div>
+                                <div class="w-32 h-32 mx-auto my-2 flex items-center justify-center bg-cocoa-50 rounded-2xl p-2 group-hover:scale-105 transition-transform">
+                                    <svg viewBox="0 0 100 100" class="w-24 h-24">
+                                        <path d="M50 20 L80 50 L50 80 L20 50 Z" fill="#D64550"/>
+                                        <path d="M50 30 L70 50 L50 70 L30 50 Z" fill="#E63946"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-cocoa-900 text-center">Ecuadorian Wild Berry Ruby Gem</h3>
+                                <p class="text-xs text-cocoa-500 text-center mt-1">Naturally pink cocoa bean with intense berry notes & zero colorants.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-cocoa-100 pt-4">
+                                <div>
+                                    <span class="text-xs text-cocoa-400 block">Hover to View Notes</span>
+                                    <span class="text-lg font-bold text-cocoa-900">$22.50</span>
+                                </div>
+                                <button onclick="addToCart('Ecuadorian Wild Berry Ruby Gem', 22.50, 'Ecuador')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white p-3 rounded-xl transition-all">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-cocoa-800 text-white rounded-3xl p-6 flex flex-col justify-between rotate-y-180 backface-hidden border-2 border-gold/50">
+                            <div>
+                                <div class="text-gold font-bold text-xs uppercase tracking-widest mb-2">Tasting Profile</div>
+                                <h4 class="font-serif text-xl font-bold text-white mb-3">Flavor Notes</h4>
+                                <ul class="space-y-2 text-xs text-cocoa-100">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Tart Raspberry & Red Currant</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Natural Unfermented Ruby Cocoa</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Crisp Luscious Finish</li>
+                                </ul>
+                                <div class="mt-4 p-3 bg-cocoa-700/80 rounded-xl text-xs text-cocoa-100/90">
+                                    <strong class="text-gold">Rarity:</strong> 4th official type of chocolate after Dark, Milk & White.
+                                </div>
+                            </div>
+                            <button onclick="addToCart('Ecuadorian Wild Berry Ruby Gem', 22.50, 'Ecuador')" class="w-full bg-gold hover:bg-caramel text-cocoa-900 font-bold py-3 rounded-xl transition-all text-center">
+                                Add To Box - $22.50
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 5 -->
+                <div class="passport-item vegan dark flip-card perspective-1000 h-[380px] group cursor-pointer">
+                    <div class="card-inner relative w-full h-full transform-style-3d shadow-xl rounded-3xl">
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border border-cocoa-100 flex flex-col justify-between backface-hidden">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="bg-cocoa-800 text-gold text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-flag"></i> Ghana</span>
+                                    <span class="text-xs font-bold text-pistachio bg-pistachio/20 px-2.5 py-1 rounded-full">85% Vegan Dark</span>
+                                </div>
+                                <div class="w-32 h-32 mx-auto my-2 flex items-center justify-center bg-cocoa-50 rounded-2xl p-2 group-hover:scale-105 transition-transform">
+                                    <svg viewBox="0 0 100 100" class="w-24 h-24">
+                                        <rect x="25" y="25" width="50" height="50" rx="25" fill="#1A0C0A"/>
+                                        <circle cx="50" cy="50" r="15" fill="#2A9D8F"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-cocoa-900 text-center">Ghanaian Oat Milk & Pistachio Block</h3>
+                                <p class="text-xs text-cocoa-500 text-center mt-1">Plant-based luxury crafted with roasted Sicilian pistachios.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-cocoa-100 pt-4">
+                                <div>
+                                    <span class="text-xs text-cocoa-400 block">Hover to View Notes</span>
+                                    <span class="text-lg font-bold text-cocoa-900">$19.90</span>
+                                </div>
+                                <button onclick="addToCart('Ghanaian Oat Milk & Pistachio Block', 19.90, 'Ghana')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white p-3 rounded-xl transition-all">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-cocoa-800 text-white rounded-3xl p-6 flex flex-col justify-between rotate-y-180 backface-hidden border-2 border-gold/50">
+                            <div>
+                                <div class="text-gold font-bold text-xs uppercase tracking-widest mb-2">Tasting Profile</div>
+                                <h4 class="font-serif text-xl font-bold text-white mb-3">Flavor Notes</h4>
+                                <ul class="space-y-2 text-xs text-cocoa-100">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Nutty Roasted Pistachio Butter</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Smooth Creamy Oat Milk Blend</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Zero Refined Sugar (Stevia Sweetened)</li>
+                                </ul>
+                                <div class="mt-4 p-3 bg-cocoa-700/80 rounded-xl text-xs text-cocoa-100/90">
+                                    <strong class="text-gold">Dietary:</strong> 100% Vegan, Dairy-Free, Gluten-Free.
+                                </div>
+                            </div>
+                            <button onclick="addToCart('Ghanaian Oat Milk & Pistachio Block', 19.90, 'Ghana')" class="w-full bg-gold hover:bg-caramel text-cocoa-900 font-bold py-3 rounded-xl transition-all text-center">
+                                Add To Box - $19.90
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 6 -->
+                <div class="passport-item dark flip-card perspective-1000 h-[380px] group cursor-pointer">
+                    <div class="card-inner relative w-full h-full transform-style-3d shadow-xl rounded-3xl">
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border border-cocoa-100 flex flex-col justify-between backface-hidden">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="bg-cocoa-800 text-gold text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-flag"></i> Italy</span>
+                                    <span class="text-xs font-bold text-caramel bg-caramel/20 px-2.5 py-1 rounded-full text-cocoa-900">Gianduja</span>
+                                </div>
+                                <div class="w-32 h-32 mx-auto my-2 flex items-center justify-center bg-cocoa-50 rounded-2xl p-2 group-hover:scale-105 transition-transform">
+                                    <svg viewBox="0 0 100 100" class="w-24 h-24">
+                                        <ellipse cx="50" cy="50" rx="35" ry="25" fill="#3D231D"/>
+                                        <path d="M30 50 Q 50 20, 70 50" fill="none" stroke="#D4AF37" stroke-width="4"/>
+                                    </svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-cocoa-900 text-center">Piedmont Hazelnut Gold Gianduja</h3>
+                                <p class="text-xs text-cocoa-500 text-center mt-1">Piedmont IGP hazelnuts ground into silken dark gianduja cocoa.</p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-cocoa-100 pt-4">
+                                <div>
+                                    <span class="text-xs text-cocoa-400 block">Hover to View Notes</span>
+                                    <span class="text-lg font-bold text-cocoa-900">$23.00</span>
+                                </div>
+                                <button onclick="addToCart('Piedmont Hazelnut Gold Gianduja', 23.00, 'Italy')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white p-3 rounded-xl transition-all">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-cocoa-800 text-white rounded-3xl p-6 flex flex-col justify-between rotate-y-180 backface-hidden border-2 border-gold/50">
+                            <div>
+                                <div class="text-gold font-bold text-xs uppercase tracking-widest mb-2">Tasting Profile</div>
+                                <h4 class="font-serif text-xl font-bold text-white mb-3">Flavor Notes</h4>
+                                <ul class="space-y-2 text-xs text-cocoa-100">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Intense Roasted Italian Hazelnut</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Silky Smooth Creaminess</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold"></i> Wrapped in Luxury Gold Foil</li>
+                                </ul>
+                                <div class="mt-4 p-3 bg-cocoa-700/80 rounded-xl text-xs text-cocoa-100/90">
+                                    <strong class="text-gold">Origin:</strong> Made in Turin, Northern Italy.
+                                </div>
+                            </div>
+                            <button onclick="addToCart('Piedmont Hazelnut Gold Gianduja', 23.00, 'Italy')" class="w-full bg-gold hover:bg-caramel text-cocoa-900 font-bold py-3 rounded-xl transition-all text-center">
+                                Add To Box - $23.00
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Feature: Custom Box Builder (ChocoBox Interactive Builder) -->
+    <section id="builder" class="py-20 bg-cocoa-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-gold font-bold uppercase tracking-wider text-xs bg-gold/10 px-4 py-2 rounded-full border border-gold/30">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Custom Gift Experience
+                </span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold mt-4">Build Your Custom ChocoBox</h2>
+                <p class="text-cocoa-100/80 mt-3 text-base sm:text-lg">Select your preferred box size and mix your favorite chocolates from around the globe.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Box Size Selection & Controls -->
+                <div class="lg:col-span-4 bg-cocoa-800 p-6 sm:p-8 rounded-3xl border border-gold/30 shadow-2xl space-y-6">
+                    <div>
+                        <label class="text-xs font-bold uppercase text-gold tracking-wider block mb-3">1. Select Box Size</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="setBoxCapacity(4)" id="btn-cap-4" class="cap-btn bg-gold text-cocoa-900 font-bold py-3 rounded-2xl text-center border-2 border-gold transition-all">
+                                <div class="text-lg">4 Pcs</div>
+                                <div class="text-[10px] opacity-80">$16.00</div>
+                            </button>
+                            <button onclick="setBoxCapacity(6)" id="btn-cap-6" class="cap-btn bg-cocoa-700 text-white font-bold py-3 rounded-2xl text-center border-2 border-cocoa-600 hover:border-gold transition-all">
+                                <div class="text-lg">6 Pcs</div>
+                                <div class="text-[10px] opacity-80">$24.00</div>
+                            </button>
+                            <button onclick="setBoxCapacity(12)" id="btn-cap-12" class="cap-btn bg-cocoa-700 text-white font-bold py-3 rounded-2xl text-center border-2 border-cocoa-600 hover:border-gold transition-all">
+                                <div class="text-lg">12 Pcs</div>
+                                <div class="text-[10px] opacity-80">$42.00</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-xs font-bold uppercase text-gold tracking-wider block mb-3">2. Choose Box Ribbon Theme</label>
+                        <div class="flex gap-3">
+                            <button onclick="setRibbonColor('gold')" class="w-8 h-8 rounded-full bg-gold border-2 border-white shadow-md focus:ring-2 focus:ring-gold"></button>
+                            <button onclick="setRibbonColor('ruby')" class="w-8 h-8 rounded-full bg-ruby border-2 border-white shadow-md focus:ring-2 focus:ring-ruby"></button>
+                            <button onclick="setRibbonColor('matcha')" class="w-8 h-8 rounded-full bg-matcha border-2 border-white shadow-md focus:ring-2 focus:ring-matcha"></button>
+                            <button onclick="setRibbonColor('cocoa')" class="w-8 h-8 rounded-full bg-cocoa-900 border-2 border-white shadow-md focus:ring-2 focus:ring-cocoa"></button>
+                        </div>
+                    </div>
+
+                    <!-- Selected Chocolates Inventory Selector -->
+                    <div>
+                        <label class="text-xs font-bold uppercase text-gold tracking-wider block mb-3">3. Click Truffles to Add</label>
+                        <div class="space-y-2 max-h-60 overflow-y-auto pr-2">
+                            <div onclick="addTruffleToBox('Swiss Dark Truffle', '#3D231D')" class="p-2.5 bg-cocoa-700/60 hover:bg-cocoa-700 rounded-xl cursor-pointer flex items-center justify-between text-xs font-medium border border-cocoa-600 transition-colors">
+                                <span>🇨🇭 Swiss Alpine Dark Truffle</span>
+                                <i class="fa-solid fa-plus text-gold"></i>
+                            </div>
+                            <div onclick="addTruffleToBox('Belgian Caramel Praline', '#E9C46A')" class="p-2.5 bg-cocoa-700/60 hover:bg-cocoa-700 rounded-xl cursor-pointer flex items-center justify-between text-xs font-medium border border-cocoa-600 transition-colors">
+                                <span>🇧🇪 Belgian Salted Caramel</span>
+                                <i class="fa-solid fa-plus text-gold"></i>
+                            </div>
+                            <div onclick="addTruffleToBox('Kyoto Matcha Truffle', '#8AB17D')" class="p-2.5 bg-cocoa-700/60 hover:bg-cocoa-700 rounded-xl cursor-pointer flex items-center justify-between text-xs font-medium border border-cocoa-600 transition-colors">
+                                <span>🇯🇵 Kyoto Matcha Blossom</span>
+                                <i class="fa-solid fa-plus text-gold"></i>
+                            </div>
+                            <div onclick="addTruffleToBox('Ecuador Ruby Gem', '#D64550')" class="p-2.5 bg-cocoa-700/60 hover:bg-cocoa-700 rounded-xl cursor-pointer flex items-center justify-between text-xs font-medium border border-cocoa-600 transition-colors">
+                                <span>🌸 Ecuadorian Ruby Berry</span>
+                                <i class="fa-solid fa-plus text-gold"></i>
+                            </div>
+                            <div onclick="addTruffleToBox('Italian Gianduja Gold', '#AA820A')" class="p-2.5 bg-cocoa-700/60 hover:bg-cocoa-700 rounded-xl cursor-pointer flex items-center justify-between text-xs font-medium border border-cocoa-600 transition-colors">
+                                <span>🇮🇹 Italian Hazelnut Gianduja</span>
+                                <i class="fa-solid fa-plus text-gold"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="clearBox()" class="text-xs text-rose-300 hover:text-white underline">Clear Box Selection</button>
+                </div>
+
+                <!-- Live Visual Preview Box Canvas -->
+                <div class="lg:col-span-8 bg-cocoa-800/50 p-6 sm:p-10 rounded-3xl border border-gold/20 flex flex-col justify-between items-center min-h-[460px]">
+                    
+                    <div class="w-full flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white">Your Custom ChocoBox</h3>
+                            <p class="text-xs text-cocoa-100/70">Filled: <span id="box-count-text" class="text-gold font-bold">0</span> / <span id="box-max-text">4</span> slots</p>
+                        </div>
+                        <span id="ribbon-badge" class="bg-gold text-cocoa-900 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                            Gold Ribbon Box
+                        </span>
+                    </div>
+
+                    <!-- Dynamic Visual Gift Box Grid -->
+                    <div id="gift-box-grid" class="w-full max-w-md bg-cocoa-900 p-6 rounded-3xl border-4 border-gold shadow-2xl grid grid-cols-2 gap-4 relative">
+                        <!-- Ribbon SVG Overlay -->
+                        <div id="ribbon-overlay" class="absolute inset-0 pointer-events-none flex items-center justify-center">
+                            <div id="ribbon-line" class="w-full h-6 bg-gold/40 backdrop-blur-sm"></div>
+                        </div>
+                        <!-- Slot placeholders inserted by JS -->
+                    </div>
+
+                    <!-- Checkout Button & Progress Bar -->
+                    <div class="w-full mt-8 pt-6 border-t border-cocoa-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <div class="text-xs text-cocoa-100/60">Total Estimated Price</div>
+                            <div class="text-3xl font-display font-bold text-gold" id="box-price-display">$16.00</div>
+                        </div>
+                        <button onclick="addCustomBoxToCart()" id="btn-add-custom-box" disabled class="w-full sm:w-auto opacity-50 cursor-not-allowed bg-gradient-to-r from-gold to-caramel text-cocoa-900 font-bold px-8 py-4 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Add Custom Box to Cart</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why ChocoHub Section -->
+    <section id="why-us" class="py-20 bg-cocoa-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-pistachio font-bold uppercase tracking-wider text-xs bg-pistachio/10 px-3 py-1.5 rounded-full border border-pistachio/20">
+                    Craftsmanship & Integrity
+                </span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cocoa-900 mt-3">Why ChocoHub?</h2>
+                <p class="text-cocoa-600 mt-3 text-base sm:text-lg">We bridge the gap between world-class master chocolatiers and cocoa lovers worldwide.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="bg-white p-8 rounded-3xl border border-cocoa-100 shadow-xl shadow-cocoa-900/5 hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-gold/10 text-gold flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-cocoa-900 mb-2">100% Fairtrade Sourced</h3>
+                    <p class="text-xs text-cocoa-600 leading-relaxed">Direct trade ensuring ethical pay for cocoa farming communities in Ghana, Ecuador & Madagascar.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-cocoa-100 shadow-xl shadow-cocoa-900/5 hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-berry/10 text-berry flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-cocoa-900 mb-2">50+ Master Artisans</h3>
+                    <p class="text-xs text-cocoa-600 leading-relaxed">Handcrafted in small micro-batches by award-winning chocolatiers across Europe & Asia.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-cocoa-100 shadow-xl shadow-cocoa-900/5 hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-pistachio/10 text-pistachio flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-temperature-arrow-down"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-cocoa-900 mb-2">Climate-Controlled Express</h3>
+                    <p class="text-xs text-cocoa-600 leading-relaxed">Insulated thermal eco-packaging with eco-gel chillers to ensure zero melting, guaranteed.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-cocoa-100 shadow-xl shadow-cocoa-900/5 hover:-translate-y-2 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-caramel/20 text-cocoa-900 flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-cocoa-900 mb-2">Pure Clean Ingredients</h3>
+                    <p class="text-xs text-cocoa-600 leading-relaxed">Zero artificial preservatives, palm oil free, pure cocoa butter and non-GMO sweeteners.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Bestsellers & Trending Chocolates -->
+    <section id="bestsellers" class="py-20 bg-cocoa-100/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+                <div>
+                    <span class="text-berry font-bold uppercase tracking-wider text-xs">Crowd Favorites</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cocoa-900 mt-2">Trending Chocolates</h2>
+                </div>
+                <a href="#passport" class="mt-4 md:mt-0 text-cocoa-800 font-bold hover:text-gold transition-colors flex items-center gap-2">
+                    <span>View All 120+ Varieties</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Horizontal Scrollable Bestseller Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Bestseller Card 1 -->
+                <div class="bg-white rounded-3xl p-5 border border-cocoa-200/80 shadow-lg hover:shadow-2xl transition-all relative group flex flex-col justify-between">
+                    <span class="absolute top-4 left-4 bg-berry text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider z-10">Best Seller</span>
+                    <div>
+                        <div class="w-full h-48 bg-cocoa-50 rounded-2xl flex items-center justify-center overflow-hidden mb-4 relative">
+                            <svg viewBox="0 0 100 100" class="w-28 h-28 transform group-hover:scale-110 transition-transform">
+                                <rect x="25" y="25" width="50" height="50" rx="12" fill="#2B1713"/>
+                                <path d="M25 50 Q 50 30, 75 50 T 25 50" fill="#D4AF37"/>
+                            </svg>
+                        </div>
+                        <div class="flex items-center gap-1 text-gold text-xs mb-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-cocoa-400 text-[10px] ml-1">(240 reviews)</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-cocoa-900">Zurich Gold Truffle Selection</h3>
+                        <p class="text-xs text-cocoa-500 mt-1">Swiss milk chocolate with honey almond nougat.</p>
+                    </div>
+                    <div class="mt-5 flex items-center justify-between border-t border-cocoa-100 pt-3">
+                        <span class="text-xl font-bold text-cocoa-900">$26.00</span>
+                        <button onclick="addToCart('Zurich Gold Truffle Selection', 26.00, 'Switzerland')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bestseller Card 2 -->
+                <div class="bg-white rounded-3xl p-5 border border-cocoa-200/80 shadow-lg hover:shadow-2xl transition-all relative group flex flex-col justify-between">
+                    <span class="absolute top-4 left-4 bg-pistachio text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider z-10">Limited Batch</span>
+                    <div>
+                        <div class="w-full h-48 bg-cocoa-50 rounded-2xl flex items-center justify-center overflow-hidden mb-4 relative">
+                            <svg viewBox="0 0 100 100" class="w-28 h-28 transform group-hover:scale-110 transition-transform">
+                                <circle cx="50" cy="50" r="30" fill="#8AB17D"/>
+                                <circle cx="50" cy="50" r="18" fill="#3D231D"/>
+                            </svg>
+                        </div>
+                        <div class="flex items-center gap-1 text-gold text-xs mb-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-cocoa-400 text-[10px] ml-1">(182 reviews)</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-cocoa-900">Uji Matcha Supreme Box</h3>
+                        <p class="text-xs text-cocoa-500 mt-1">First-harvest Japanese tea with white cacao.</p>
+                    </div>
+                    <div class="mt-5 flex items-center justify-between border-t border-cocoa-100 pt-3">
+                        <span class="text-xl font-bold text-cocoa-900">$29.50</span>
+                        <button onclick="addToCart('Uji Matcha Supreme Box', 29.50, 'Japan')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bestseller Card 3 -->
+                <div class="bg-white rounded-3xl p-5 border border-cocoa-200/80 shadow-lg hover:shadow-2xl transition-all relative group flex flex-col justify-between">
+                    <div>
+                        <div class="w-full h-48 bg-cocoa-50 rounded-2xl flex items-center justify-center overflow-hidden mb-4 relative">
+                            <svg viewBox="0 0 100 100" class="w-28 h-28 transform group-hover:scale-110 transition-transform">
+                                <path d="M50 15 L85 85 L15 85 Z" fill="#D64550"/>
+                            </svg>
+                        </div>
+                        <div class="flex items-center gap-1 text-gold text-xs mb-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-cocoa-400 text-[10px] ml-1">(96 reviews)</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-cocoa-900">Ruby Cocoa Raspberry Gems</h3>
+                        <p class="text-xs text-cocoa-500 mt-1">Naturally fruity pink ruby chocolates.</p>
+                    </div>
+                    <div class="mt-5 flex items-center justify-between border-t border-cocoa-100 pt-3">
+                        <span class="text-xl font-bold text-cocoa-900">$24.00</span>
+                        <button onclick="addToCart('Ruby Cocoa Raspberry Gems', 24.00, 'Ecuador')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bestseller Card 4 -->
+                <div class="bg-white rounded-3xl p-5 border border-cocoa-200/80 shadow-lg hover:shadow-2xl transition-all relative group flex flex-col justify-between">
+                    <span class="absolute top-4 left-4 bg-cocoa-800 text-gold text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider z-10">100% Dark</span>
+                    <div>
+                        <div class="w-full h-48 bg-cocoa-50 rounded-2xl flex items-center justify-center overflow-hidden mb-4 relative">
+                            <svg viewBox="0 0 100 100" class="w-28 h-28 transform group-hover:scale-110 transition-transform">
+                                <rect x="20" y="20" width="60" height="60" fill="#1A0C0A" rx="8"/>
+                            </svg>
+                        </div>
+                        <div class="flex items-center gap-1 text-gold text-xs mb-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-cocoa-400 text-[10px] ml-1">(310 reviews)</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-cocoa-900">Ecuadorian 88% Single Origin</h3>
+                        <p class="text-xs text-cocoa-500 mt-1">Bold cocoa with hints of blackberry & espresso.</p>
+                    </div>
+                    <div class="mt-5 flex items-center justify-between border-t border-cocoa-100 pt-3">
+                        <span class="text-xl font-bold text-cocoa-900">$21.50</span>
+                        <button onclick="addToCart('Ecuadorian 88% Single Origin', 21.50, 'Ecuador')" class="bg-cocoa-800 hover:bg-gold hover:text-cocoa-900 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Tasting Testimonials -->
+    <section class="py-20 bg-cocoa-900 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold font-bold uppercase tracking-wider text-xs">Real Tasting Reviews</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold mt-3">Loved by Cocoa Connoisseurs</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-cocoa-800/80 p-8 rounded-3xl border border-cocoa-700 relative">
+                    <div class="text-gold text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-cocoa-100/90 text-sm leading-relaxed italic mb-6">
+                        "The Kyoto Matcha truffle is an absolute revelation! You can taste the quality of real ceremony-grade matcha balanced perfectly with cacao."
+                    </p>
+                    <div class="flex items-center gap-3 border-t border-cocoa-700 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-gold/20 text-gold flex items-center justify-center font-bold">
+                            SL
+                        </div>
+                        <div>
+                            <div class="font-bold text-xs text-white">Sophia Laurent</div>
+                            <div class="text-[10px] text-cocoa-100/60">Paris, France • Verified Gourmet</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cocoa-800/80 p-8 rounded-3xl border border-cocoa-700 relative">
+                    <div class="text-gold text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-cocoa-100/90 text-sm leading-relaxed italic mb-6">
+                        "Ordered a custom 12-piece ChocoBox for my anniversary. The cold shipping kept it perfectly intact in 85-degree weather!"
+                    </p>
+                    <div class="flex items-center gap-3 border-t border-cocoa-700 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-berry/20 text-berry flex items-center justify-center font-bold">
+                            MK
+                        </div>
+                        <div>
+                            <div class="font-bold text-xs text-white">Marcus Vance</div>
+                            <div class="text-[10px] text-cocoa-100/60">New York, USA • Verified Buyer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cocoa-800/80 p-8 rounded-3xl border border-cocoa-700 relative">
+                    <div class="text-gold text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-cocoa-100/90 text-sm leading-relaxed italic mb-6">
+                        "As a vegan, finding rich, non-waxy dark chocolates is tough. ChocoHub’s Ghanaian Oat Milk pistachio bar exceeded my expectations!"
+                    </p>
+                    <div class="flex items-center gap-3 border-t border-cocoa-700 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-pistachio/20 text-pistachio flex items-center justify-center font-bold">
+                            AR
+                        </div>
+                        <div>
+                            <div class="font-bold text-xs text-white">Aria Tanaka</div>
+                            <div class="text-[10px] text-cocoa-100/60">Tokyo, Japan • Food Blogger</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter / ChocoClub Subscription Banner -->
+    <section id="club" class="py-16 bg-gradient-to-r from-berry via-cocoa-800 to-cocoa-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-cocoa-900/60 backdrop-blur-md p-8 sm:p-12 rounded-3xl border border-gold/30 flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="max-w-xl text-center lg:text-left">
+                    <span class="bg-gold text-cocoa-900 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                        Join ChocoClub
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-3">Get 15% Off Your First Passport To Bliss</h2>
+                    <p class="text-cocoa-100/80 mt-2 text-sm">Subscribe to receive monthly limited artisan releases, secret tasting discounts, and global cocoa stories.</p>
+                </div>
+
+                <form onsubmit="handleSubscribe(event)" class="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+                    <input type="email" required placeholder="Enter your email address" class="px-5 py-4 rounded-2xl bg-cocoa-800 text-white placeholder-cocoa-400 border border-gold/30 focus:outline-none focus:border-gold w-full sm:w-80 text-sm">
+                    <button type="submit" class="bg-gold hover:bg-caramel text-cocoa-900 font-bold px-8 py-4 rounded-2xl transition-all shadow-lg text-sm whitespace-nowrap">
+                        Claim 15% OFF
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cocoa-900 text-cocoa-100 border-t border-cocoa-800 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+                
+                <!-- Col 1: Brand Info -->
+                <div class="lg:col-span-2 space-y-4">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-gold to-caramel flex items-center justify-center text-cocoa-900 font-display font-bold text-xl">
+                            <i class="fa-solid font-black fa-cube"></i>
+                        </div>
+                        <span class="font-serif text-2xl font-bold text-white">Choco<span class="text-gold">Hub</span></span>
+                    </a>
+                    <p class="text-xs text-cocoa-100/70 max-w-sm leading-relaxed">
+                        ChocoHub is the ultimate destination for global artisanal chocolates. Sourcing directly from world-renowned master chocolatiers with ethical fairtrade cocoa.
+                    </p>
+                    <div class="flex items-center gap-4 text-gold pt-2">
+                        <a href="#" class="w-9 h-9 rounded-full bg-cocoa-800 flex items-center justify-center hover:bg-gold hover:text-cocoa-900 transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-cocoa-800 flex items-center justify-center hover:bg-gold hover:text-cocoa-900 transition-all"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-cocoa-800 flex items-center justify-center hover:bg-gold hover:text-cocoa-900 transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-cocoa-800 flex items-center justify-center hover:bg-gold hover:text-cocoa-900 transition-all"><i class="fa-brands fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h4 class="font-serif font-bold text-white text-sm mb-4">Explore</h4>
+                    <ul class="space-y-2.5 text-xs text-cocoa-100/70">
+                        <li><a href="#passport" class="hover:text-gold transition-colors">Global Passport</a></li>
+                        <li><a href="#builder" class="hover:text-gold transition-colors">Custom ChocoBox</a></li>
+                        <li><a href="#bestsellers" class="hover:text-gold transition-colors">Bestsellers</a></li>
+                        <li><a href="#why-us" class="hover:text-gold transition-colors">Why ChocoHub</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Corporate Gifting</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Customer Care -->
+                <div>
+                    <h4 class="font-serif font-bold text-white text-sm mb-4">Customer Care</h4>
+                    <ul class="space-y-2.5 text-xs text-cocoa-100/70">
+                        <li><a href="#" class="hover:text-gold transition-colors">Track Cold Order</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Melting Guarantee</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Shipping & Cold Packs</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">FAQs & Contact</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Trust Badge -->
+                <div>
+                    <h4 class="font-serif font-bold text-white text-sm mb-4">Freshness Guarantee</h4>
+                    <div class="bg-cocoa-800 p-4 rounded-2xl border border-cocoa-700 space-y-2 text-xs">
+                        <div class="flex items-center gap-2 text-gold font-bold">
+                            <i class="fa-solid fa-snowflake"></i> Eco Ice Packaging
+                        </div>
+                        <p class="text-[11px] text-cocoa-100/70">
+                            Delivered in temperature-controlled boxes or 100% money back guarantee.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-cocoa-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-[11px] text-cocoa-100/50 gap-4">
+                <p>&copy; 2026 ChocoHub Artisanal Chocolates Inc. All rights reserved.</p>
+                <div class="flex items-center gap-4 text-lg">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-apple-pay"></i>
+                    <i class="fa-brands fa-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer Overlay -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0">
+        <!-- Backdrop -->
+        <div id="cart-backdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        
+        <!-- Cart Drawer Container -->
+        <div id="cart-panel" class="absolute top-0 right-0 h-full w-full max-w-md bg-cocoa-900 text-white shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 pointer-events-auto border-l border-gold/30">
+            <div>
+                <div class="flex justify-between items-center border-b border-cocoa-700 pb-4">
+                    <h3 class="font-serif text-2xl font-bold text-gold flex items-center gap-2">
+                        <i class="fa-solid fa-basket-shopping"></i> Your ChocoCart
+                    </h3>
+                    <button onclick="toggleCartDrawer()" class="text-cocoa-100 hover:text-gold text-2xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items List -->
+                <div id="cart-items-container" class="mt-6 space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                    <p id="empty-cart-msg" class="text-xs text-cocoa-100/60 text-center py-10">Your cart is currently empty. Add chocolates from our global collection!</p>
+                </div>
+            </div>
+
+            <div class="border-t border-cocoa-700 pt-4 space-y-4">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-cocoa-100/70">Subtotal:</span>
+                    <span id="cart-subtotal" class="font-bold text-xl text-gold">$0.00</span>
+                </div>
+                <div class="bg-cocoa-800 p-3 rounded-xl text-[11px] text-cocoa-100/80 flex items-center gap-2">
+                    <i class="fa-solid fa-truck-fast text-gold"></i> Free express cold-shipping on orders over $50!
+                </div>
+                <button onclick="checkout()" class="w-full bg-gradient-to-r from-gold via-caramel to-gold text-cocoa-900 font-bold py-4 rounded-2xl shadow-xl hover:opacity-95 transition-all text-center">
+                    Proceed To Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chocolate Personality Quiz Modal -->
+    <div id="quiz-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div onclick="closeQuizModal()" class="absolute inset-0 bg-black/70 backdrop-blur-md"></div>
+        
+        <div class="bg-cocoa-800 border-2 border-gold/50 text-white rounded-3xl p-6 sm:p-8 max-w-lg w-full relative z-10 shadow-2xl">
+            <button onclick="closeQuizModal()" class="absolute top-4 right-4 text-cocoa-100/60 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="quiz-step-1">
+                <span class="text-gold text-xs font-bold uppercase tracking-wider">Flavor Quiz • Step 1 of 2</span>
+                <h3 class="font-serif text-2xl font-bold mt-2">What's your ideal taste profile?</h3>
+                <p class="text-xs text-cocoa-100/70 mt-1 mb-6">Select your favorite flavor direction to find your match.</p>
+                
+                <div class="space-y-3">
+                    <button onclick="quizNext('rich')" class="w-full p-4 bg-cocoa-700 hover:bg-gold hover:text-cocoa-900 rounded-2xl font-semibold text-left text-xs transition-all flex items-center justify-between">
+                        <span>🍫 Deep, Intense & Dark Cocoa (70%+)</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button onclick="quizNext('fruity')" class="w-full p-4 bg-cocoa-700 hover:bg-gold hover:text-cocoa-900 rounded-2xl font-semibold text-left text-xs transition-all flex items-center justify-between">
+                        <span>🍓 Fruity, Berry & Exotic Ruby Notes</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button onclick="quizNext('creamy')" class="w-full p-4 bg-cocoa-700 hover:bg-gold hover:text-cocoa-900 rounded-2xl font-semibold text-left text-xs transition-all flex items-center justify-between">
+                        <span>🧈 Creamy Caramel & Nutty Pralines</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button onclick="quizNext('matcha')" class="w-full p-4 bg-cocoa-700 hover:bg-gold hover:text-cocoa-900 rounded-2xl font-semibold text-left text-xs transition-all flex items-center justify-between">
+                        <span>🍵 Earthy Matcha & Botanical Infusions</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="quiz-result" class="hidden text-center py-4">
+                <div class="w-16 h-16 bg-gold/20 text-gold rounded-full flex items-center justify-center mx-auto text-3xl mb-4">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <span class="text-gold text-xs font-bold uppercase tracking-wider">Your Cocoa Match Is</span>
+                <h3 class="font-serif text-2xl font-bold text-white mt-1" id="quiz-match-title">Ecuadorian Ruby Berry Truffle</h3>
+                <p class="text-xs text-cocoa-100/80 mt-2 mb-6" id="quiz-match-desc">Your palate loves vibrant contrast and natural fruitiness!</p>
+                
+                <button onclick="addQuizMatchToCart()" class="w-full bg-gold text-cocoa-900 font-bold py-3.5 rounded-2xl shadow-lg hover:bg-caramel transition-all text-xs">
+                    Add Match To Cart - $22.50
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Box -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-gold text-cocoa-900 font-bold px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-xl"></i>
+        <span id="toast-message" class="text-xs">Added to your box!</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Global State
+        let cart = [];
+        let customBox = {
+            capacity: 4,
+            ribbon: 'gold',
+            basePrice: 16.00,
+            items: []
+        };
+
+        // Mobile Navigation Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Filter Global Passport Cards
+        function filterPassport(category) {
+            const buttons = document.querySelectorAll('#passport-filters .filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-cocoa-800', 'text-gold');
+                btn.classList.add('bg-white', 'text-cocoa-800');
+            });
+
+            event.currentTarget.classList.remove('bg-white', 'text-cocoa-800');
+            event.currentTarget.classList.add('bg-cocoa-800', 'text-gold');
+
+            const items = document.querySelectorAll('.passport-item');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Custom Box Builder Functions
+        function renderBoxGrid() {
+            const grid = document.getElementById('gift-box-grid');
+            grid.innerHTML = '';
+            
+            // Re-add ribbon SVG line
+            const ribbonLine = document.createElement('div');
+            ribbonLine.className = 'absolute inset-0 pointer-events-none flex items-center justify-center';
+            ribbonLine.innerHTML = `<div class="w-full h-8 border-y-2 border-gold/40 bg-${customBox.ribbon === 'gold' ? 'gold' : customBox.ribbon === 'ruby' ? 'ruby' : customBox.ribbon === 'matcha' ? 'matcha' : 'cocoa-900'}/30 backdrop-blur-sm"></div>`;
+            grid.appendChild(ribbonLine);
+
+            // Set dynamic grid columns based on capacity
+            grid.className = customBox.capacity === 12 
+                ? 'w-full max-w-md bg-cocoa-900 p-6 rounded-3xl border-4 border-gold shadow-2xl grid grid-cols-4 gap-3 relative'
+                : 'w-full max-w-md bg-cocoa-900 p-6 rounded-3xl border-4 border-gold shadow-2xl grid grid-cols-2 sm:grid-cols-3 gap-4 relative';
+
+            for (let i = 0; i < customBox.capacity; i++) {
+                const item = customBox.items[i];
+                const slot = document.createElement('div');
+                slot.className = 'h-24 bg-cocoa-800/80 rounded-2xl border-2 border-dashed border-gold/30 flex flex-col items-center justify-center p-2 relative text-center';
+
+                if (item) {
+                    slot.className = 'h-24 bg-cocoa-700 rounded-2xl border-2 border-gold flex flex-col items-center justify-center p-2 relative text-center animate-bounce-short';
+                    slot.innerHTML = `
+                        <div class="w-8 h-8 rounded-full mb-1 border border-white/20" style="background-color: ${item.color}"></div>
+                        <span class="text-[10px] font-bold text-white line-clamp-1">${item.name}</span>
+                        <button onclick="removeTruffleFromBox(${i})" class="absolute -top-2 -right-2 bg-berry text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow">×</button>
+                    `;
+                } else {
+                    slot.innerHTML = `<span class="text-[10px] text-cocoa-100/40 font-medium">Slot ${i + 1}</span>`;
+                }
+                grid.appendChild(slot);
+            }
+
+            // Update Text Displays
+            document.getElementById('box-count-text').innerText = customBox.items.length;
+            document.getElementById('box-max-text').innerText = customBox.capacity;
+            document.getElementById('box-price-display').innerText = `$${customBox.basePrice.toFixed(2)}`;
+
+            const addBtn = document.getElementById('btn-add-custom-box');
+            if (customBox.items.length === customBox.capacity) {
+                addBtn.disabled = false;
+                addBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                addBtn.disabled = true;
+                addBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function setBoxCapacity(cap) {
+            customBox.capacity = cap;
+            customBox.basePrice = cap === 4 ? 16.00 : cap === 6 ? 24.00 : 42.00;
+            customBox.items = customBox.items.slice(0, cap);
+
+            document.querySelectorAll('.cap-btn').forEach(btn => {
+                btn.classList.remove('bg-gold', 'text-cocoa-900', 'border-gold');
+                btn.classList.add('bg-cocoa-700', 'text-white', 'border-cocoa-600');
+            });
+
+            const activeBtn = document.getElementById(`btn-cap-${cap}`);
+            activeBtn.classList.remove('bg-cocoa-700', 'text-white', 'border-cocoa-600');
+            activeBtn.classList.add('bg-gold', 'text-cocoa-900', 'border-gold');
+
+            renderBoxGrid();
+        }
+
+        function setRibbonColor(color) {
+            customBox.ribbon = color;
+            document.getElementById('ribbon-badge').innerText = `${color.toUpperCase()} Ribbon Box`;
+            renderBoxGrid();
+        }
+
+        function addTruffleToBox(name, color) {
+            if (customBox.items.length < customBox.capacity) {
+                customBox.items.push({ name, color });
+                renderBoxGrid();
+                showToast(`Added ${name} to box!`);
+            } else {
+                showToast(`Box is full (${customBox.capacity} Pcs max)!`);
+            }
+        }
+
+        function removeTruffleFromBox(index) {
+            customBox.items.splice(index, 1);
+            renderBoxGrid();
+        }
+
+        function clearBox() {
+            customBox.items = [];
+            renderBoxGrid();
+        }
+
+        function addCustomBoxToCart() {
+            if (customBox.items.length === customBox.capacity) {
+                const title = `Custom ${customBox.capacity}-Piece ChocoBox (${customBox.ribbon} Ribbon)`;
+                addToCart(title, customBox.basePrice, 'Custom Selection');
+                clearBox();
+            }
+        }
+
+        // Cart Drawer Functions
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+            
+            if (drawer.classList.contains('opacity-0')) {
+                drawer.classList.remove('opacity-0', 'pointer-events-none');
+                panel.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('opacity-0', 'pointer-events-none');
+                panel.classList.add('translate-x-full');
+            }
+        }
+
+        function addToCart(title, price, origin) {
+            cart.push({ title, price, origin, id: Date.now() });
+            updateCartUI();
+            showToast(`Added ${title} to cart!`);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cart-count');
+            const container = document.getElementById('cart-items-container');
+            const subtotalElem = document.getElementById('cart-subtotal');
+            const emptyMsg = document.getElementById('empty-cart-msg');
+
+            countElem.innerText = cart.length;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p id="empty-cart-msg" class="text-xs text-cocoa-100/60 text-center py-10">Your cart is currently empty. Add chocolates from our global collection!</p>';
+                subtotalElem.innerText = '$0.00';
+                return;
+            }
+
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                subtotal += item.price;
+                const div = document.createElement('div');
+                div.className = 'bg-cocoa-800 p-3.5 rounded-2xl flex items-center justify-between border border-cocoa-700 text-xs';
+                div.innerHTML = `
+                    <div>
+                        <div class="font-bold text-white">${item.title}</div>
+                        <div class="text-[10px] text-gold"><i class="fa-solid fa-earth-americas"></i> ${item.origin}</div>
+                        <div class="font-bold text-cocoa-100 mt-1">$${item.price.toFixed(2)}</div>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="text-rose-400 hover:text-rose-200 p-2">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+
+            subtotalElem.innerText = `$${subtotal.toFixed(2)}`;
+        }
+
+        // Quiz Modal Logic
+        function openQuizModal() {
+            const modal = document.getElementById('quiz-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('quiz-step-1').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+        }
+
+        function closeQuizModal() {
+            const modal = document.getElementById('quiz-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function quizNext(type) {
+            document.getElementById('quiz-step-1').classList.add('hidden');
+            const result = document.getElementById('quiz-result');
+            const title = document.getElementById('quiz-match-title');
+            const desc = document.getElementById('quiz-match-desc');
+
+            if (type === 'rich') {
+                title.innerText = 'Ecuadorian 88% Dark Single Origin';
+                desc.innerText = 'You appreciate deep, complex cocoa notes with zero sugar fluff.';
+            } else if (type === 'fruity') {
+                title.innerText = 'Ecuadorian Wild Berry Ruby Gem';
+                desc.innerText = 'Your palate loves vibrant berry fruitiness and naturally pink cocoa!';
+            } else if (type === 'creamy') {
+                title.innerText = 'Brussels Salted Caramel Praline';
+                desc.innerText = 'You love rich, buttery Fleur de Sel caramel wrapped in milk chocolate.';
+            } else {
+                title.innerText = 'Kyoto Ceremonial Green Tea Truffle';
+                desc.innerText = 'You enjoy serene, earthy matcha paired with smooth white cocoa butter.';
+            }
+
+            result.classList.remove('hidden');
+        }
+
+        function addQuizMatchToCart() {
+            const title = document.getElementById('quiz-match-title').innerText;
+            addToCart(title, 22.50, 'Curated Match');
+            closeQuizModal();
+        }
+
+        // Toast Notification Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // Form Submit Handler
+        function handleSubscribe(e) {
+            e.preventDefault();
+            showToast('Welcome to ChocoClub! Your 15% discount code is: BLISS15');
+            e.target.reset();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty!');
+                return;
+            }
+            alert('Thank you for ordering with ChocoHub! Express cold-pack shipping is being prepared.');
+            cart = [];
+            updateCartUI();
+            toggleCartDrawer();
+        }
+
+        // Initialize Builder on Load
+        window.onload = function() {
+            renderBoxGrid();
+        };
+    </script>
+</body>
+</html>
